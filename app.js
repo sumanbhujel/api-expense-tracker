@@ -9,8 +9,8 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/api/", apiRouter);
+app.use("/api/", apiRouter);    
 
-const PORT = 8080;
+const PORT = 7000;
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}...`));

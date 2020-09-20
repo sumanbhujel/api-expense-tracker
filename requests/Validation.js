@@ -1,4 +1,3 @@
-//import Joi from '@hapi/joi';
 const Joi = require('@hapi/joi');
 
 const OPTIONS = {
@@ -33,7 +32,34 @@ const SIGNIN = (signInData) => {
     return Joi.validate(signInData, signInSchema, OPTIONS);
 }
 
+//adding new category   
+
+const ADDCATEGORY = (categoryData) => {
+    const addCategorySchema = Joi.object().keys({
+        name: Joi.string().min(2).max(30).required().label("Category name"),
+        type: Joi.string().valid(['Expense', 'Income']).required().label("Category type"),
+        icon: Joi.string().label("Icon"),
+        creator: Joi.string().required().label("Creator")
+    });
+
+    return Joi.validate(categoryData, addCategorySchema, OPTIONS);
+}
+
+//adding new transaction
+const NEWTRANSACTION = (transactionData) => {
+    const newTransactionSchema = Joi.object().keys({
+        note: Joi.string().min(1).max(50).required().label("Note"),
+        amount: Joi.number().min(1).required().label("Amount"),
+        type: Joi.string().valid(['Expense', 'Income']).required().label("Transaction type"),
+        category: Joi.string().required().label("Category"),
+        date: Joi.date().required().label("Date"),
+        creator: Joi.string().required().label("Creator")
+    });
+
+    return Joi.validate(transactionData, newTransactionSchema, OPTIONS);
+}
+
 
 module.exports = {
-    SIGNUP, SIGNIN
+    SIGNUP, SIGNIN, ADDCATEGORY, NEWTRANSACTION
 }
